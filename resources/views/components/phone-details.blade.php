@@ -1,4 +1,4 @@
-@props(['model', 'release_year', 'description', 'image'])
+@props(['model', 'release_year', 'description', 'image', 'brand'])
 
 <!-- phone detail component -->
 <div class="border rounded-lg shadow-md p-6 bg-white hover:shadow-lg transition duration-300 max-w-xl mx-auto"> 
@@ -16,7 +16,11 @@
 <h2 class="text-gray-500 text-sm italic mb-4" style="font-size: 1rem;">Published: {{ $release_year }}</h2>
 
 <!-- description -->
-<h3 class="text-gray-800 font-semibold mb-2" style="font-size: 2rem;">description</h3>
+<h3 class="text-gray-800 font-semibold mb-2" style="font-size: 2rem;">Description</h3>
 <p class="text-gray-700 leading-relaxed">{{ $description }}</p>
+
+<!-- brand -->
+<h3 class="text-gray-800 font-semibold mb-2" style="font-size: 2rem;">Brand</h3>
+<p class="text-gray-700 leading-relaxed">{{ $brand }}</p>
 
 </div> 

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('model');
             $table->text('description')->nullable();
             $table->integer('release_year'); 
-            $table->decimal('price', 10, 2);
             $table->string('image')->nullable();
             $table->string('brand');
             $table->timestamps();

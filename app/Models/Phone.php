@@ -14,6 +14,7 @@ class Phone extends Model
         'description',
         'release_year',
         'image',
+        'brand', 
         'created_at',
         'updated_at'
     ];

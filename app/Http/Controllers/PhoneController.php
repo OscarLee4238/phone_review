@@ -33,21 +33,24 @@ class PhoneController extends Controller
         $request->validate([
          'model' => 'required',
          'description' => 'required|max:500',
-         'release_year' => 'required/integer',
+         'release_year' => 'required|integer',
+         'brand' => 'required', 
          'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
 
             $imageName = time().'.'.$request->image->extension();
-            $request->image-move(public_path('images/phones'), $imageName);
+            $request->image->move(public_path('/image'), $imageName);
+
         }
 
         Phone::create([
             'model' => $request->model,
             'description' => $request->description,
-            'release_year' => $request->year,
+            'release_year' => $request->release_year,
             'image' => $imageName,
+            'brand' => $request->brand,
             'created_at' => now(),
             'updates_at' => now()
         ]);
@@ -68,7 +71,7 @@ class PhoneController extends Controller
      */
     public function edit(Phone $phone)
     {
-        //
+        return view('phones.edit')->with('phone', $phone);
     }
 
     /**
@@ -76,7 +79,16 @@ class PhoneController extends Controller
      */
     public function update(Request $request, Phone $phone)
     {
-        //
+        $validatedData = $request->validate([
+            'model' => 'required',
+            'description' => 'required|max:500',
+            'release_year' => 'required|integer',
+            'brand' => 'required', 
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $phone->update($validatedData);
+        return redirect()->route('phones.index')->with('success', 'phones updated successfully');
     }
 
     /**
@@ -84,6 +96,7 @@ class PhoneController extends Controller
      */
     public function destroy(Phone $phone)
     {
-        //
+        $phone->delete();
+        return to_route('phones.index')->with('success', 'Phone deleted successfully!');
     }
 }

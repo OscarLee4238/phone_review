@@ -15,6 +15,7 @@
                         :image="$phone->image"
                         :release_year="$phone->release_year"
                         :description="$phone->description"
+                        :brand="$phone->brand"
                     />
                 </div>
             </div>
