@@ -22,28 +22,25 @@ class PhoneController extends Controller
      */
     public function create()
     {
+        if (auth()->user()->role !== 'admin'){
+            return redirect()->route('phones.index')->with('error', 'Access denied');
+        }
         return view('phones.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $phone)
+    {   
         $request->validate([
          'model' => 'required',
          'description' => 'required|max:500',
          'release_year' => 'required|integer',
          'brand' => 'required', 
-         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if ($request->hasFile('image')) {
-
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('/image'), $imageName);
-
-        }
 
         Phone::create([
             'model' => $request->model,
@@ -58,12 +55,16 @@ class PhoneController extends Controller
         return to_route('phones.index')->with('success', 'Phone created successfully!');
     }
 
+
+
+
     /**
      * Display the specified resource.
      */
     public function show(Phone $phone)
     {
-        return view('phones.show')->with('phone', $phone);
+        $phone->load('reviews.user');
+        return view('phones.show', compact( 'phone'));
     }
 
     /**
