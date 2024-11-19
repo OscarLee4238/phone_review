@@ -29,10 +29,26 @@
                                 <p class="font-semibold">{{ $review->user->name }} ({{ $review->created_at->format('M d, Y') }})</p>
                                 <p>Rating: {{ $review->rating }} / 5</p>
                                 <p>{{ $review->comment }}</p>
-                            </li>
-                        @endforeach
-                            </ul>
+
+                                @if ($review->user->is(auth()->user()) || auth()->user()->role === 'admin')
+                            <!-- edit button -->
+                                <a href="{{ route('reviews.edit', $review) }}" class="bg-yellow-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
+                                    {{ __('Edit Review') }}
+                                </a>
+
+                            <!--  delete button -->
+                            <form method="POST" action="{{ route('reviews.destroy', $review) }}" onsubmit="return window.confirm('Are you sure you want to delete this book?');">
+                                @csrf
+                                @method('DELETE')
+                                <x-danger-button type='submit'>
+                                    {{ __('Delete Review') }}
+                                </x-danger-button>
+                            </form>
                         @endif
+                    </li>
+                @endforeach
+            </ul>
+        @endif
                         
                     <!-- add a new review -->                   
                         <h4 class="font-semibold text-md mt-8">Add a Review</h4>

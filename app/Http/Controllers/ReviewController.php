@@ -57,7 +57,11 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        if (auth()->user()->id !== $review->user_id && auth()->user()->role !== 'admin') {
+            return redirect()->route('phones.index')->with('error', 'Access Denied.');
+        }
+
+        return view('reviews.edit', compact('review'));
     }
 
     /**
@@ -65,7 +69,10 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        //
+        $review->update($request->only(['rating', 'comment']));
+
+        return redirect()->route('phones.show', $review->phone_id)
+                        ->with('success', 'Review updated successfully.');
     }
 
     /**
@@ -73,6 +80,7 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+        return to_route('phones.index', $review->phone_id)->with('success', 'Review deleted successfully!');
     }
 }
