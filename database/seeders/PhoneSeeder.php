@@ -43,5 +43,12 @@ class PhoneSeeder extends Seeder
                     'updated_at' => $currentTimestamp
                 ],
             ]);
+
+            foreach ($phones as $phonedata)
+            {
+                $phone = Phone::create(array_merge($phonedata, ['created at' => $currentTimestamp, 'updated_at' =>$currentTimestamp]));
+                $features = Feature::inRandomOrder()->take(2)->pluck('id');
+                $phone->features()->attach($features);
+            }
     }
 }

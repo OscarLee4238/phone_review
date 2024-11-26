@@ -23,4 +23,9 @@ class Phone extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function features()
+    {
+        return $this->belongsToMany(Feature::class);
+    }
 }
