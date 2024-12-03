@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FeatureController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,6 +19,14 @@ Route::put('/phones/{phone}', [PhoneController::class, 'update'])->name('phones.
 Route::post('/phones', [PhoneController::class, 'store'])->name('phones.store');
 Route::delete('/phones/{phone}', [PhoneController::class, 'destroy'])->name('phones.destroy');
 
+Route::get('/features', [FeatureController::class, 'index'])->name('features.index');
+Route::get('/features/create', [FeatureController::class, 'create'])->name('features.create');
+Route::get('/features/{feature}', [FeatureController::class, 'show'])->name('features.show');
+Route::get('/features/{feature}/edit', [FeatureController::class, 'edit'])->name('features.edit');
+Route::put('/features/{feature}', [FeatureController::class, 'update'])->name('features.update');
+Route::post('/features', [FeatureController::class, 'store'])->name('features.store');
+Route::delete('/features/{feature}', [FeatureController::class, 'destroy'])->name('features.destroy');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,6 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('features', FeaturesController::class)->middleware('auth');
+Route::resource('features', FeatureController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';

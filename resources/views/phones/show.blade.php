@@ -32,6 +32,7 @@
 
                                 @if ($review->user->is(auth()->user()) || auth()->user()->role === 'admin')
                             <!-- edit button -->
+                            <div class="flex space-x-4 mt-4">
                                 <a href="{{ route('reviews.edit', $review) }}" class="bg-yellow-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
                                     {{ __('Edit Review') }}
                                 </a>
@@ -44,6 +45,7 @@
                                     {{ __('Delete Review') }}
                                 </x-danger-button>
                             </form>
+                            </div>
                         @endif
                     </li>
                 @endforeach

@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Phone;
 
-class features extends Model
+
+class Feature extends Model
 {
     use HasFactory;
 
@@ -13,6 +15,6 @@ class features extends Model
 
     public function phones()
     {
-        return $this->belongsToMany(phone::class);
+        return $this->belongsToMany(Phone::class);
     }
 }

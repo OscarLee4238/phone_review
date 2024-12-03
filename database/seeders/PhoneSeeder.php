@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Phone;
+use App\Models\Feature;
 
 class PhoneSeeder extends Seeder
 {
@@ -14,7 +15,8 @@ class PhoneSeeder extends Seeder
     public function run(): void
     {
         $currentTimestamp = now();  
-            Phone::insert([
+            
+        $phones = [
                 [
                     'model' => 'iPhone 16 Pro Max',
                     'description' => 'The newest phone from Apple',
@@ -42,12 +44,14 @@ class PhoneSeeder extends Seeder
                     'created_at' => $currentTimestamp,
                     'updated_at' => $currentTimestamp
                 ],
-            ]);
+            ];
 
             foreach ($phones as $phonedata)
             {
-                $phone = Phone::create(array_merge($phonedata, ['created at' => $currentTimestamp, 'updated_at' =>$currentTimestamp]));
+                $phone = Phone::create(array_merge($phonedata, ['created_at' => $currentTimestamp, 'updated_at' =>$currentTimestamp]));
                 $features = Feature::inRandomOrder()->take(2)->pluck('id');
+                
+                         
                 $phone->features()->attach($features);
             }
     }

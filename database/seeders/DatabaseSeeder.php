@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PhoneSeeder::class);
 
+        //$this->call(ReviewSeeder::class);
+
+        $this->call(FeatureSeeder::class);
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

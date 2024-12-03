@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\features;
+use App\Models\Feature;
+
 
 class FeatureSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class FeatureSeeder extends Seeder
      */
     public function run(): void
     {
-        features::insert([
+        Feature::insert([
             ['name' => 'telephoto lens', 'description' => 'Optical zoom for better close up photos.'],
             ['name' => 'Battery <5000mah', 'description' => 'Has a 5000mah or greater battery.'],
             ['name' => 'benchmark', 'description' => 'Antutu(v9) score above 900,000 .'],
