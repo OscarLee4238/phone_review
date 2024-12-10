@@ -28,7 +28,7 @@ class FeatureController extends Controller
         };
 
         $phone = Phone::all();
-        return view('features.create', compact('phones')); 
+        return view('features.create', compact('phone')); 
     }
 
     /**
@@ -42,7 +42,7 @@ class FeatureController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|text|max:1000',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         $feature =Feature::create($validated);
@@ -70,7 +70,7 @@ class FeatureController extends Controller
     {
         $phone = Phone::all();
         $featurePhones = $feature->phones->pluck('id')->toArray();
-        return view('features.edit', compact('features', 'phones', 'featurePhones'));
+        return view('features.edit', compact('feature', 'phone', 'featurePhones'));
     }
 
     /**
@@ -80,14 +80,10 @@ class FeatureController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|text|max:1000',
+            'description' => 'nullable|string|max:1000',
         ]);
 
-        $feature->updated($validated);
-
-        if ($request->has('phones')) {
-            $feature->phones()->sync($request->phones);
-        }
+        $feature->update($validated);
 
         return redirect()->route('features.index')->with('success', 'feature successfully updated');
     }

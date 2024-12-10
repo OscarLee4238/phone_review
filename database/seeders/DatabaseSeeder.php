@@ -15,12 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(PhoneSeeder::class);
-
-        //$this->call(ReviewSeeder::class);
 
         $this->call(FeatureSeeder::class);
+        $this->call(PhoneSeeder::class);
 
+       
+        //$this->call(ReviewSeeder::class);
+
+    
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
